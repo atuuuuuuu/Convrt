@@ -1,7 +1,6 @@
-# This workflow will build a Swift project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
+# This workflow will build and test the Convrt macOS app using Xcode
 
-name: Swift
+name: Build and Test
 
 on:
   push:
@@ -11,12 +10,15 @@ on:
 
 jobs:
   build:
-
     runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+
+    - name: Build and Test Xcode Project
+      run: |
+        xcodebuild -project Convrt.xcodeproj \
+                   -scheme Convrt \
+                   -sdk macosx \
+                   -destination "platform=macOS" \
+                   clean build test
