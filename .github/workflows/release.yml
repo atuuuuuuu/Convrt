@@ -25,13 +25,11 @@ jobs:
 
     - name: Package App
       run: |
-        # Locate the built .app product path from xcodebuild settings
         BUILT_PRODUCTS_DIR=$(xcodebuild -project Convrt.xcodeproj -scheme Convrt -sdk macosx -configuration Release -showBuildSettings | grep -m 1 "BUILT_PRODUCTS_DIR" | awk -F " = " '{print $2}')
         APP_PATH="$BUILT_PRODUCTS_DIR/Convrt.app"
         
         echo "Found app at: $APP_PATH"
         
-        # Create a clean distribution zip
         ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" "Convrt-macOS.zip"
 
     - name: Upload Release Asset
