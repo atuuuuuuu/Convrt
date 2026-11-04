@@ -223,4 +223,4 @@ For code changes, open a pull request that builds cleanly and describe how you t
 
 ## Acknowledgements
 
-Convrt is inspired by the drag-and-drop workflow of [Tangerine](https://tangerineapp.com) for Mac. It is an independent project and is not affiliated with or endorsed by Tangerine.
+Convrt is inspired by the drag-and-drop workflow of [Tangerine](https://tangerineformac.com) for Mac. It is an independent project and is not affiliated with or endorsed by Tangerine.
