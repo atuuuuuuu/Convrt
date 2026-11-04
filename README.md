@@ -84,7 +84,7 @@ JPG and HEIC use the quality slider from [Settings](#settings).
 ### Build from source
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Convrt.git
+[git clone https://github.com/YOUR_USERNAME/Convrt.git](https://github.com/atuuuuuuu/Convrt.git)
 cd Convrt
 open Convrt.xcodeproj
 ```
