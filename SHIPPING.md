@@ -1,5 +1,11 @@
 # Convrt: build and ship guide
 
+> **Update (current layout).** The Swift sources now live in `Convrt/Convrt/{App,Wheel,Engine,UI}/` and the Xcode
+> project already includes them, so step 1 below ("drop the new files into Xcode") is no longer needed. After adding a
+> file, run `python3 Scripts/sync_xcode_sources.py`. The signing advice in section 2 and 3 still applies and is what
+> keeps the Accessibility / Input Monitoring permissions from resetting. See README.md.
+
+
 ## 1. Drop the new files into Xcode
 
 1. Quit Xcode.

@@ -1,0 +1,3 @@
+import ConvrtCore
+
+cliMain()

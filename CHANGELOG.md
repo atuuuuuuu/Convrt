@@ -5,6 +5,12 @@ All notable changes to Convrt are listed here.
 ## [Unreleased]
 
 ### Added
+- Three wheels: **Convert**, **Tools** and **Actions**. Option cycles them, Command/Control jump, scroll/Tab/arrows step, Esc closes.
+- Audio conversion (WAV, MP3, M4A, FLAC, AIFF; MP3 output via `lame`), video conversion (MOV, MP4), PDF and ZIP tools.
+- Image tools including an interactive cropper, background removal, resize, compress, strip metadata, rotate, flip.
+- Video tools (mute, trim, snapshot, extract audio), AirDrop, floating shelf, Drop Zone window.
+- Watch Folders, Recent Conversions with Undo, and a `convrt` command-line tool.
+- Blue theme; stable signing so permissions survive rebuilds; unit tests run with `Scripts/test.sh`.
 - Menu bar app with no Dock icon, Launch at Login, About and Diagnostics.
 - Shift-drag radial wheel with real drop targets and a fade/scale animation.
 - Image conversion: PNG, JPG, HEIC, TIFF, BMP, GIF and PDF (WEBP and AVIF when macOS can write them).

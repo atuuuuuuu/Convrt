@@ -7,220 +7,140 @@
 
 # Convrt
 
-**Drag a file. Hold Shift. Drop it on a format.**
-A tiny, fully offline file converter that lives in your Mac's menu bar.
+**Drag a file. Hold Shift. Convert it, edit it, or send it.**
+An open-source, fully offline file toolkit that lives in your Mac's menu bar.
 
-[![macOS 13+](https://img.shields.io/badge/macOS-13%2B-034897?logo=apple&logoColor=white)](#requirements)
-[![Swift](https://img.shields.io/badge/Swift-SwiftUI%20%2B%20AppKit-FA4B00?logo=swift&logoColor=white)](#how-it-works)
+[![macOS 13+](https://img.shields.io/badge/macOS-13%2B-034897?logo=apple&logoColor=white)](#install)
+[![Swift](https://img.shields.io/badge/Swift-SwiftUI%20%2B%20AppKit-2F7BFF?logo=swift&logoColor=white)](#build-from-source)
 [![100% offline](https://img.shields.io/badge/100%25-offline-2ea44f)](#privacy)
-[![Status: beta](https://img.shields.io/badge/status-beta-orange)](#roadmap)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-<img src="assets/banner.png" alt="Convrt: a radial wheel of formats appears while you drag a file" width="100%">
+<img src="assets/banner.png" alt="Convrt: a radial wheel appears while you drag a file" width="100%">
 
 </div>
 
 ---
 
-## Contents
-
-[What it is](#what-it-is) · [Features](#features) · [How it works](#how-it-works) · [What it converts](#what-it-converts) · [Install](#install) · [Permissions](#permissions) · [Settings](#settings) · [Privacy](#privacy) · [Project layout](#project-layout) · [Roadmap](#roadmap) · [Shipping a release](#shipping-a-release) · [Contributing](#contributing) · [License](#license)
-
 ## What it is
 
-Convrt sits quietly in the menu bar with no Dock icon. Start dragging files from anywhere (Finder, the Desktop, any folder),
-**hold Shift**, and a radial wheel of formats appears right at your cursor. Drop the files on a wedge and the converted
-copies land next to the originals. Nothing is ever overwritten, nothing leaves your Mac.
+Convrt sits in the menu bar with no Dock icon. Start dragging files from anywhere, **hold Shift**, and a wheel opens at
+your cursor. Drop the files on a slice. Results land next to the originals and **never overwrite** anything. An open-source
+take on [Tangerine](https://tangerineformac.app/), with more on top. Nothing leaves your Mac.
+
+## The three wheels
 
 <div align="center">
-  <img src="assets/wheel.png" alt="The Convrt radial wheel with JPG highlighted in orange" width="420">
+  <img src="assets/wheel.png" alt="Convert wheel" width="300">
+  <img src="assets/wheel-tools.png" alt="Tools wheel" width="300">
+  <img src="assets/wheel-actions.png" alt="Actions wheel" width="300">
 </div>
+
+| While dragging a file | What happens |
+|---|---|
+| Hold **Shift** | The wheel opens at the cursor on **Convert**. |
+| Tap **Option ⌥** (Shift held) | Cycle **Convert → Tools → Actions**. Holding Option and Shift together opens Tools. |
+| **Command ⌘** / **Control ⌃** | Jump straight to **Tools** / **Actions**. |
+| **Scroll**, **Tab**, **← → ↑ ↓** | Move the highlight around the wheel. |
+| Release on a slice | Run it. Release on the centre to run the highlighted slice. |
+| **Esc**, or let go of Shift | Close the wheel. |
+
+The wheel only shows what makes sense for what you are dragging. All the keys can be turned off in Settings.
 
 ## Features
 
-| | |
+### Convert
+| You drag | You can make |
 |---|---|
-| **Drag, hold Shift, drop** | The wheel appears at your cursor while you drag. Release Shift or press Esc and it fades away. |
-| **Only sensible formats** | The wheel shows just the formats that make sense for what you're dragging. Mixed selections show only formats valid for every file. |
-| **Never overwrites** | `photo.jpg` already exists? You get `photo-1.jpg`, then `photo-2.jpg`. |
-| **Looks after your photos** | Keeps the color profile, orientation, EXIF and GPS data. Transparent pixels turn white when you save to JPG or BMP. |
-| **PDF in, PDF out** | PDF pages become images (a new folder for multi-page files). Several images become one combined PDF. |
-| **Feedback without fuss** | A small card shows "Converting…" and then "Done" with a **Reveal in Finder** button. |
-| **Real settings** | Trigger key, output folder, quality, move originals to the Trash, launch at login. |
-| **Fully offline** | No network code, no accounts, no analytics. See [Privacy](#privacy). |
-| **Built-in diagnostics** | One menu item shows permissions, signing and event counts to help when something doesn't work. |
+| Images (PNG, JPG, HEIC, TIFF, BMP, GIF, ...) | PNG, JPG, HEIC, TIFF, BMP, GIF, PDF. Several images become one PDF. |
+| PDF | One image per page (PNG, JPG, HEIC, TIFF) |
+| Audio (WAV, MP3, M4A, FLAC, AIFF) | Any of those, for example **MP3 → WAV** and **WAV → MP3** |
+| Video (MOV, MP4, M4V) | MOV or MP4, or just the sound as M4A, WAV or MP3 |
 
-## How it works
+macOS cannot write MP3 files, so MP3 *output* needs the `lame` encoder: `brew install lame`. Convrt finds it automatically
+(or `ffmpeg`), and only offers MP3 when one is installed. Everything else works out of the box.
 
-1. **Drag** one or more files out of Finder, the Desktop, or anywhere.
-2. **Hold Shift** (or the key you chose in Settings). The wheel fades in at your cursor.
-3. **Drop** the files on a wedge such as JPG. A converted copy appears next to each original.
+### Tools
+- **Images:** Compress, Resize, Strip Metadata (removes EXIF and GPS), Rotate left/right, Flip, **Crop…**, Crop 1:1, Cut Out (background removal with Apple Vision), Merge to PDF.
+- **Interactive cropper:** drag 8 handles or the whole box, pick Free, Original, 1:1, 4:3, 16:9, 3:2 or A4, see a rule-of-thirds grid and the live pixel size. Drop several images and it walks through them.
+- **Video:** Mute, Trim… (start and end times), Snapshot (a still as JPG), Extract Audio.
+- **PDF:** Merge, Split Pages, Get Text.
+- **Anything:** Zip (and Unzip for `.zip` files; archives cannot write outside their folder), Info (size, dimensions, duration, camera, and more).
 
-Under the hood:
+### Actions
+AirDrop, Float (puts files on a floating shelf you can drag out of), Copy Path, Reveal in Finder, Open in Terminal, Copy To…, Move To…, Quick Look.
 
-- A global `NSEvent` monitor watches drag events and reads the dragged file URLs from the drag pasteboard.
-- The wheel is a borderless, transparent, non-activating `NSPanel` that floats above everything and joins all Spaces. Each wedge is a real drop target, so it never steals focus from the app you're dragging from.
-- Images are converted with Apple's **ImageIO** and **Core Graphics**. PDFs use **PDFKit**. Work runs on a background queue so the UI never freezes.
+### Beyond the wheel
+- **Drop Zone** (menu bar icon → Drop Zone…): the same wheels in a window. Works even without the drag permissions.
+- **Floating Shelf:** a small always-on-top panel that holds files so you can drag them into other apps.
+- **Watch Folders** (Settings): new files that land in a folder are converted automatically, once they have finished downloading or copying. Files already there are left alone and originals are never deleted.
+- **Recent Conversions + Undo:** the menu bar icon lists recent results. Undo moves them to the Trash. Only paths are stored, on your Mac, in `~/Library/Application Support/Convrt/history.json`. Clear History empties it.
+- **Settings:** trigger key, output folder, quality, resize size, compress quality, wheel keys, watch folders, launch at login.
 
-## What it converts
+## Command line
 
-| You drag | You can convert to | Notes |
-|---|---|---|
-| Images (anything macOS can open as an image: PNG, JPG, HEIC, TIFF, BMP, GIF and more) | PNG, JPG, HEIC, TIFF, BMP, GIF, PDF | WEBP and AVIF appear only if your macOS can write them |
-| Several images | One combined PDF | Drop them on the PDF wedge |
-| A PDF | PNG, JPG, HEIC, TIFF | One image per page at 144 dpi; multi-page PDFs go into a new folder |
-| A mix of the above | Only formats valid for **all** of them | |
-| Anything else (zips, apps, folders, audio, video) | Nothing yet | The wheel shows "Can't convert this type" |
+```bash
+Scripts/install_cli.sh                        # installs ~/.local/bin/convrt
+convrt convert photo.heic --to jpg
+convrt convert song.wav --to mp3 --out ~/Music
+convrt tool compress *.jpg
+convrt tool trim clip.mov --from 0:05 --to 0:20
+convrt formats song.mp3                       # what can this file become?
+convrt watch ~/Downloads/Incoming --to pdf
+```
 
-JPG and HEIC use the quality slider from [Settings](#settings).
+It uses the same engine as the app. Originals are never deleted. Exit status: 0 done, 1 some files failed, 2 bad command.
 
 ## Install
 
-### Requirements
-
-- macOS 13 Ventura or newer
-- Xcode 15 or newer (to build from source)
-
-### Build from source
-
-```bash
-[git clone https://github.com/atuuuuuuu/Convrt.git
-cd Convrt
-open Convrt.xcodeproj
-```
-
-1. Select the **Convrt** target, open **Signing & Capabilities**, and choose your **Team**.
-   A free personal team works. Don't leave signing on "Sign to Run Locally", or macOS will keep forgetting your permissions.
-2. Make sure **App Sandbox** is *not* enabled (Convrt needs to read dragged files anywhere on disk).
-3. Press **Cmd+R**.
-
-### Install it like a normal app
-
-```bash
-./Scripts/build_release.sh local
-```
-
-This builds a Release version, copies it to `/Applications/Convrt.app`, and opens it.
+Download `Convrt-macOS.zip` from [Releases](https://github.com/atuuuuuuu/Convrt/releases), unzip, and move Convrt to
+Applications. Or [build it](#build-from-source).
 
 ## Permissions
 
-Convrt needs two macOS privacy permissions to notice your drag and key presses in other apps:
+Convrt needs **Accessibility** and **Input Monitoring** to notice Shift while you drag. Open the menu bar icon → *Check
+Permissions…*, switch Convrt on in both lists, and restart it. If macOS keeps asking after you rebuild, the app is not
+signed with a stable identity; use **Reset Permissions…** in the menu once. See [SHIPPING.md](SHIPPING.md).
 
-- **Accessibility**
-- **Input Monitoring**
+## Build from source
 
-On first launch Convrt explains this and opens System Settings for you. Switch Convrt on in both lists and click
-**Restart** when it offers.
+1. Open `Convrt.xcodeproj` in Xcode 15 (deployment target macOS 13).
+2. Target **Convrt → Signing & Capabilities**: choose your own Team (a free personal team is fine). Avoid "Sign to Run Locally".
+3. Press ⌘R.
 
-<details>
-<summary><b>It works from Xcode (Cmd+R) but not when I open the app myself</b></summary>
-
-<br>
-
-When Xcode launches the app, macOS treats Xcode as the responsible program, so the permission you gave Xcode also covers
-Convrt. Opened on its own, Convrt needs its own permission, and macOS ties that to its code signature. A build signed
-"to run locally" gets a new signature every time, so the entry in System Settings goes stale while still showing a switch
-that is on.
-
-1. Choose a **Team** in Xcode under Signing & Capabilities.
-2. Install with `./Scripts/build_release.sh local`.
-3. In System Settings > Privacy & Security, remove old Convrt entries from **Accessibility** and **Input Monitoring** with the **−** button.
-4. Launch Convrt, switch it on in both lists, and restart it.
-5. Click the menu bar icon > **Diagnostics…**. You want to see "granted" twice and a real signing authority (not "ad-hoc").
-
-Still stuck? Reset the stale entries (use your own bundle identifier):
+New `.swift` files need adding to the project: run `python3 Scripts/sync_xcode_sources.py`.
 
 ```bash
-tccutil reset Accessibility com.yourname.Convrt
-tccutil reset ListenEvent com.yourname.Convrt
+Scripts/test.sh        # app logic tests (Swift Package Manager, about 10 s, no app launch)
+Scripts/test-cli.sh    # command-line tests
+Scripts/xb.sh build    # compile check
 ```
 
-</details>
-
-## Settings
-
-Open them from the menu bar icon > **Settings…**
-
-| Setting | What it does | Default |
-|---|---|---|
-| Hold to show the Convert wheel | Shift, Option, Control or Command | Shift |
-| Save converted files | Next to the original, or in a folder you choose | Next to the original |
-| Move the original to the Trash | Recoverable, only after a successful conversion | Off |
-| Lossy quality | Quality for JPG and HEIC | 85% |
-| Launch at login | Start Convrt when you log in | Off |
-| Play a sound when done | A soft sound when conversion finishes | On |
-
-## Privacy
-
-- The app contains **no networking code**, no accounts and no analytics. Converting never uploads anything.
-- The App Sandbox is off because Convrt must read dragged files anywhere, but the app asks for **no network entitlement**.
-- A small log at `~/Library/Logs/Convrt.log` records counts and states only (for example "3 files, 0 failed"), never file names.
-  Open it from **Diagnostics… > Show Log in Finder**, or delete it any time.
+`xcodebuild test` hangs on a Mac with Developer Mode off, which is why tests run through `swift test`.
 
 ## Project layout
 
-```text
-Convrt/
-├── Convrt.xcodeproj
-├── Convrt/                      App sources
-│   ├── ConvrtApp.swift          App entry point
-│   ├── AppDelegate.swift        Menu bar item, wiring, conversion flow
-│   ├── DragMonitor.swift        Global drag + modifier-key detection
-│   ├── WheelController.swift    Shows/hides the wheel, hit-tests wedges
-│   ├── WheelPanel.swift         Transparent, non-activating floating panel
-│   ├── WheelDropView.swift      Receives the drop (NSDraggingDestination)
-│   ├── WheelModel.swift         Wheel state
-│   ├── RadialWheelView.swift    SwiftUI drawing of the wheel
-│   ├── Formats.swift            File-type detection and valid output formats
-│   ├── Converter.swift          ImageIO / PDFKit conversion, never overwrites
-│   ├── HUDController.swift      "Converting… / Done" card
-│   ├── SettingsView.swift       Settings window
-│   ├── SettingsWindowController.swift
-│   ├── AppSettings.swift        All user settings in one place
-│   ├── PermissionManager.swift  Accessibility / Input Monitoring guidance
-│   ├── Diagnostics.swift        Health report
-│   ├── AppLog.swift             Local log
-│   ├── Assets.xcassets          App icon, menu bar icon, accent color
-│   └── Convrt.entitlements
-├── Scripts/build_release.sh     local install, or signed + notarized DMG
-├── docs/SHIPPING.md             Signing, notarization and release checklist
-└── assets/                      Logo, banner and images used in this README
+```
+Convrt/App      app, settings, permissions, menu bar
+Convrt/Wheel    the wheel: events, state, hit testing, drop target
+Convrt/Engine   conversion and tools (shared with the CLI)
+Convrt/UI       wheel view, cropper, shelf, Drop Zone, settings
+CLI/            the convrt command-line tool (symlinks the engine)
+ConvrtTests/    unit tests
 ```
 
-## Roadmap
+## Privacy
 
-- [x] Menu bar app with no Dock icon
-- [x] Shift-drag radial wheel with real drop targets
-- [x] Image conversion (PNG, JPG, HEIC, TIFF, BMP, GIF, PDF)
-- [x] PDF to images, and images to PDF
-- [x] Settings, "Done" card with Reveal in Finder, diagnostics
-- [ ] Audio and video conversion with a bundled `ffmpeg`
-- [ ] Command-key **File Tools** wheel: Compress, Strip metadata, Edit, Crop, Add background, Annotate, Redact
-- [ ] WEBP and AVIF output on every Mac
-- [ ] Document conversion (DOCX, Markdown, HTML) with a bundled `pandoc`
-- [ ] Rebindable key for the File Tools wheel
-- [ ] Notarized downloads on the Releases page
+No network code, no accounts, no analytics. Only Accessibility and Input Monitoring are requested. The log
+(`~/Library/Logs/Convrt.log`) holds counts and states, never file names.
 
-## Shipping a release
+## Not done yet
 
-To build a signed, notarized `.dmg` you can share:
-
-```bash
-./Scripts/build_release.sh dmg
-```
-
-This needs a paid Apple Developer account. [`docs/SHIPPING.md`](docs/SHIPPING.md) covers the one-time setup and a pre-release test checklist.
-The Mac App Store isn't an option: the App Sandbox forbids global drag monitoring and access to files anywhere.
+Dragging an image out of a web browser (needs a download), 7z/RAR/OGG/WebM/MKV, reading text from scanned PDFs.
 
 ## Contributing
 
-Bug reports and ideas are welcome. Please open an issue and, for bugs, paste the text from **menu bar icon > Diagnostics…**.
-For code changes, open a pull request that builds cleanly and describe how you tested it.
+Issues and pull requests are welcome. Please run `Scripts/test.sh` before sending a change.
 
 ## License
 
 [MIT](LICENSE)
-
-## Acknowledgements
-
-Convrt is inspired by the drag-and-drop workflow of [Tangerine](https://tangerineformac.com) for Mac. It is an independent project and is not affiliated with or endorsed by Tangerine.
