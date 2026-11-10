@@ -4,6 +4,13 @@ All notable changes to Convrt are listed here.
 
 ## [Unreleased]
 
+### Changed
+- README rewritten: new banner, one image for all three wheels, install steps, shorter feature tables.
+- Rotate slices renamed **Turn Left** / **Turn Right** (the arrows alone were hard to tell apart).
+- `Scripts/render_readme_art.sh` redraws the README images from the real wheel view.
+
+## [1.0.0] - 2026-11-09
+
 ### Added
 - Three wheels: **Convert**, **Tools** and **Actions**. Option cycles them, Command/Control jump, scroll/Tab/arrows step, Esc closes.
 - Audio conversion (WAV, MP3, M4A, FLAC, AIFF; MP3 output via `lame`), video conversion (MOV, MP4), PDF and ZIP tools.
