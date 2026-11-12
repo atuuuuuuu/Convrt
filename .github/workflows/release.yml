@@ -21,6 +21,7 @@ jobs:
                    -scheme Convrt \
                    -sdk macosx \
                    -configuration Release \
+                   DEVELOPMENT_TEAM="" \
                    clean build
 
     - name: Package App

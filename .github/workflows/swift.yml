@@ -21,4 +21,5 @@ jobs:
                    -scheme Convrt \
                    -sdk macosx \
                    -destination "platform=macOS" \
+                   DEVELOPMENT_TEAM="" \
                    clean build test
