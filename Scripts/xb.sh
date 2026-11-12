@@ -1,9 +1,9 @@
 #!/bin/bash
-# Build or test Convrt with the Xcode in ~/Downloads (not the active developer dir).
+# Build or test Convrt with full Xcode (see xcode_env.sh).
 # Builds go to /tmp/convrt-dd so unsigned test builds never pollute the signed app Xcode builds.
 # `test` runs only the unit tests and retries when Xcode's test host hangs (it sometimes idles forever).
 set -uo pipefail
-export DEVELOPER_DIR="${DEVELOPER_DIR:-/Users/macbookpro2017/Downloads/Xcode.app/Contents/Developer}"
+source "$(dirname "$0")/xcode_env.sh"
 cd "$(dirname "$0")/.."
 action="${1:?usage: xb.sh build|test}"; shift || true
 LOG="${XB_LOG:-/tmp/xb-$action.log}"

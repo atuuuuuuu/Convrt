@@ -3,15 +3,11 @@
 # from the app's real RadialWheelView, using SwiftPM + ImageRenderer. No app launch needed.
 set -euo pipefail
 # Needs full Xcode (XCTest), not just the Command Line Tools.
-if [ -z "${DEVELOPER_DIR:-}" ]; then
-  for x in /Applications/Xcode.app "$HOME/Downloads/Xcode.app"; do
-    [ -d "$x" ] && export DEVELOPER_DIR="$x/Contents/Developer" && break
-  done
-fi
+source "$(dirname "$0")/xcode_env.sh"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PKG=/tmp/convrt-art-pkg
 mkdir -p "$PKG/Sources/Convrt" "$PKG/Tests/Art"
-rsync -a --delete --include='*/' --include='*.swift' --exclude='ConvrtApp.swift' --exclude='*' "$ROOT/Convrt/" "$PKG/Sources/Convrt/"
+rsync -a --delete --delete-excluded --exclude='ConvrtApp.swift' --include='*/' --include='*.swift' --exclude='*' "$ROOT/Convrt/" "$PKG/Sources/Convrt/"
 cp "$ROOT/Scripts/readme-art/RenderReadmeArt.swift" "$PKG/Tests/Art/"
 cat > "$PKG/Package.swift" <<'SWIFT'
 // swift-tools-version:5.9

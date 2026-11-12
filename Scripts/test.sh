@@ -3,11 +3,11 @@
 # so it needs neither Developer Mode nor any permission prompt).
 # Copies the app sources (minus the @main file) and the tests into /tmp/convrt-pkg and runs `swift test`.
 set -euo pipefail
-export DEVELOPER_DIR="${DEVELOPER_DIR:-/Users/macbookpro2017/Downloads/Xcode.app/Contents/Developer}"
+source "$(dirname "$0")/xcode_env.sh"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PKG=/tmp/convrt-pkg
 mkdir -p "$PKG/Sources/Convrt" "$PKG/Tests/ConvrtTests"
-rsync -a --delete --include='*/' --include='*.swift' --exclude='ConvrtApp.swift' --exclude='*' "$ROOT/Convrt/" "$PKG/Sources/Convrt/"
+rsync -a --delete --delete-excluded --exclude='ConvrtApp.swift' --include='*/' --include='*.swift' --exclude='*' "$ROOT/Convrt/" "$PKG/Sources/Convrt/"
 rsync -a --delete --include='*/' --include='*.swift' --exclude='*' "$ROOT/ConvrtTests/" "$PKG/Tests/ConvrtTests/"
 cat > "$PKG/Package.swift" <<'SWIFT'
 // swift-tools-version:5.9
