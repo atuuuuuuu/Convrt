@@ -9,6 +9,15 @@ final class PermissionManagerTests: XCTestCase {
             ["tccutil", "reset", "ListenEvent", id]
         ])
     }
+
+    func testAccessibilityListNameFollowsTheMacOS27Rename() {
+        func name(_ major: Int) -> String {
+            PermissionManager.accessibilityListName(for: OperatingSystemVersion(majorVersion: major, minorVersion: 0, patchVersion: 0))
+        }
+        XCTAssertEqual(name(13), "Accessibility")
+        XCTAssertEqual(name(26), "Accessibility")
+        XCTAssertEqual(name(27), "Device Control and Data Access")
+    }
 }
 
 final class AppEnvironmentTests: XCTestCase {

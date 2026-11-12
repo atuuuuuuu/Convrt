@@ -6,6 +6,14 @@ enum PermissionManager {
     static var inputMonitoringGranted: Bool { CGPreflightListenEventAccess() }
     static var allGranted: Bool { accessibilityGranted && inputMonitoringGranted }
 
+    /// What System Settings calls the Accessibility list. macOS 27 renamed it
+    /// "Device Control and Data Access" (same list, same `Privacy_Accessibility` link).
+    static var accessibilityListName: String { accessibilityListName(for: ProcessInfo.processInfo.operatingSystemVersion) }
+
+    static func accessibilityListName(for version: OperatingSystemVersion) -> String {
+        version.majorVersion >= 27 ? "Device Control and Data Access" : "Accessibility"
+    }
+
     /// Registers the app in the Privacy lists (and triggers the system prompts).
     /// An app only appears in those lists after it has asked once.
     private static func requestAccess() {
@@ -34,14 +42,14 @@ enum PermissionManager {
         if allGranted {
             guard showWhenGranted else { return }
             alert.messageText = "All permissions granted"
-            alert.informativeText = "Accessibility and Input Monitoring are both enabled."
+            alert.informativeText = "\(accessibilityListName) and Input Monitoring are both enabled."
             alert.addButton(withTitle: "OK")
             alert.runModal()
             return
         }
 
         var missing: [String] = []
-        if !accessibilityGranted { missing.append("• Accessibility") }
+        if !accessibilityGranted { missing.append("• \(accessibilityListName)") }
         if !inputMonitoringGranted { missing.append("• Input Monitoring") }
 
         alert.alertStyle = .warning
@@ -100,7 +108,7 @@ enum PermissionManager {
         NSApp.activate(ignoringOtherApps: true)
         let alert = NSAlert()
         alert.messageText = "Reset Convrt’s permissions?"
-        alert.informativeText = "Convrt will forget its Accessibility and Input Monitoring entries, restart, and ask again. Use this once after changing how Convrt is signed."
+        alert.informativeText = "Convrt will forget its \(accessibilityListName) and Input Monitoring entries, restart, and ask again. Use this once after changing how Convrt is signed."
         alert.addButton(withTitle: "Reset and Restart")
         alert.addButton(withTitle: "Cancel")
         guard alert.runModal() == .alertFirstButtonReturn else { return }

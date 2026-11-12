@@ -126,7 +126,7 @@ struct SettingsView: View {
                 }
 
                 Section("Permissions") {
-                    permissionRow("Accessibility", ok: accessibilityOK)
+                    permissionRow(PermissionManager.accessibilityListName, ok: accessibilityOK)
                     permissionRow("Input Monitoring", ok: inputMonitoringOK)
                     Button("Check Permissions…") { PermissionManager.check(showWhenGranted: true) }
                 }
