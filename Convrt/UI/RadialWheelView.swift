@@ -23,7 +23,8 @@ struct WheelWedge: Shape {
         let rIn = innerRadius + corner
         let half = Double(gap / 2 + corner)
         let dOut = asin(min(half / Double(rOut), 1))
-        let dIn = asin(min(half / Double(rIn), 1))
+        // Clamp so a small inner radius (or many wedges) ends in a point instead of flipping the arc (thanks u/Enlitened).
+        let dIn = min(asin(min(half / Double(rIn), 1)), slice / 2)
 
         var p = Path()
         p.addArc(center: c, radius: rOut, startAngle: .radians(a0 + dOut), endAngle: .radians(a1 - dOut), clockwise: false)

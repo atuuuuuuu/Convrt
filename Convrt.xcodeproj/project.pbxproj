@@ -72,6 +72,7 @@
 		C161D3B6C9C00477265952C2 /* WheelHitTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C061D3B6C9C00477265952C2 /* WheelHitTestTests.swift */; };
 		C1CC54E2E0FA8B7A8A93AFAD /* WheelKeyMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CC54E2E0FA8B7A8A93AFAD /* WheelKeyMappingTests.swift */; };
 		C13D6C6BC29EC1927FF87EDC /* WheelStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D6C6BC29EC1927FF87EDC /* WheelStateTests.swift */; };
+		C1EDD04846C7DD9CF41E6CB3 /* WheelWedgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDD04846C7DD9CF41E6CB3 /* WheelWedgeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +163,7 @@
 		C061D3B6C9C00477265952C2 /* WheelHitTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WheelHitTestTests.swift"; sourceTree = "<group>"; };
 		C0CC54E2E0FA8B7A8A93AFAD /* WheelKeyMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WheelKeyMappingTests.swift"; sourceTree = "<group>"; };
 		C03D6C6BC29EC1927FF87EDC /* WheelStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WheelStateTests.swift"; sourceTree = "<group>"; };
+		C0EDD04846C7DD9CF41E6CB3 /* WheelWedgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WheelWedgeTests.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +294,7 @@
 				C061D3B6C9C00477265952C2 /* WheelHitTestTests.swift */,
 				C0CC54E2E0FA8B7A8A93AFAD /* WheelKeyMappingTests.swift */,
 				C03D6C6BC29EC1927FF87EDC /* WheelStateTests.swift */,
+				C0EDD04846C7DD9CF41E6CB3 /* WheelWedgeTests.swift */,
 			);
 			path = ConvrtTests;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				C161D3B6C9C00477265952C2 /* WheelHitTestTests.swift in Sources */,
 				C1CC54E2E0FA8B7A8A93AFAD /* WheelKeyMappingTests.swift in Sources */,
 				C13D6C6BC29EC1927FF87EDC /* WheelStateTests.swift in Sources */,
+				C1EDD04846C7DD9CF41E6CB3 /* WheelWedgeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
