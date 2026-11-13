@@ -12,9 +12,15 @@
 </div>
 
 Convrt lives in your menu bar. Start dragging files from anywhere, **hold Shift**, and a wheel opens at the cursor.
-Drop on a slice to convert, edit or send the files. Results land next to the originals and never overwrite anything.
+Drop on a slice to convert, edit or send the files: HEIC to JPG, MOV to MP4, WAV to MP3, images to PDF, merge PDFs,
+strip location data from photos. Results land next to the originals and never overwrite anything.
 Everything happens on your Mac: no network, no accounts. An open-source take on
 [Tangerine](https://tangerineformac.app/), with more on top.
+
+<div align="center">
+  <img src="assets/demo.gif" alt="Real recording: dragging a HEIC photo in Finder, holding Shift, and dropping it on JPG. The JPG appears next to the original." width="100%">
+  <br><sub>Real recording of the app. <a href="https://github.com/atuuuuuuu/Convrt/releases/latest">Download</a></sub>
+</div>
 
 <div align="center">
   <img src="assets/wheels.png" alt="The Convert, Tools and Actions wheels" width="100%">
@@ -30,6 +36,7 @@ audio formats, and so on.
 3. The release is not notarized, so the first time, **right-click Convrt → Open → Open**.
 4. Allow **Accessibility** (called **Device Control and Data Access** on macOS 27 and later) and **Input Monitoring** when asked (menu bar icon → *Check Permissions…*), then restart Convrt.
    These let it notice Shift while you drag. If macOS keeps asking, use *Reset Permissions…* in the menu once.
+   Rather not grant them? The **Drop Zone** window (menu bar → *Drop Zone…*) gives you the same wheels with no permissions.
 
 Optional: `brew install lame` to make MP3 files (macOS can read MP3 but cannot write it).
 
@@ -141,3 +148,5 @@ trimming audio. Ideas and pull requests are welcome; please run `Scripts/test.sh
 ## License
 
 [MIT](LICENSE)
+
+If Convrt saves you a few clicks, a ⭐ on the repo helps other Mac users find it.

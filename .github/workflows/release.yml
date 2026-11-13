@@ -21,6 +21,8 @@ jobs:
                    -scheme Convrt \
                    -sdk macosx \
                    -configuration Release \
+                   -destination "generic/platform=macOS" \
+                   ARCHS="arm64 x86_64" ONLY_ACTIVE_ARCH=NO \
                    DEVELOPMENT_TEAM="" \
                    clean build
 
@@ -30,7 +32,9 @@ jobs:
         APP_PATH="$BUILT_PRODUCTS_DIR/Convrt.app"
         
         echo "Found app at: $APP_PATH"
-        
+        # Fail the release if it isn't universal (Intel Macs couldn't open the arm64-only 1.0.0).
+        lipo "$APP_PATH/Contents/MacOS/Convrt" -verify_arch arm64 x86_64
+
         ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" "Convrt-macOS.zip"
 
     - name: Upload Release Asset
