@@ -31,7 +31,8 @@ audio formats, and so on.
 
 ## Install
 
-1. Download `Convrt-macOS.zip` from the [latest release](https://github.com/atuuuuuuu/Convrt/releases/latest).
+1. Download `Convrt-macOS.zip` from the [latest release](https://github.com/atuuuuuuu/Convrt/releases/latest)
+   (macOS 13 or later, Apple silicon and Intel).
 2. Unzip it and move **Convrt** to Applications.
 3. The release is not notarized, so the first time, **right-click Convrt → Open → Open**.
 4. Allow **Accessibility** (called **Device Control and Data Access** on macOS 27 and later) and **Input Monitoring** when asked (menu bar icon → *Check Permissions…*), then restart Convrt.
